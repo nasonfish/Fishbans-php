@@ -13,7 +13,7 @@ class Fishbans {
      * @param string $location The base location you're sending the request to. This is set up to use SSL (HTTPS)
      * @return string Data given by the page.
      */
-    public function sendRequest($file, $auth = true, $method = 'GET', $params = array(), $location = 'http://api.fishbans.com'){
+    public function sendRequest($file, $auth = false, $method = 'GET', $params = array(), $location = 'http://api.fishbans.com'){
         $method = strtoupper($method);
         if($method === 'GET'){
             $p = '';
@@ -28,9 +28,9 @@ class Fishbans {
             $p = http_build_query($params);
         }
         $headers = array();
-        if($auth){
-            $headers[] = 'Authorization: Basic ' . base64_encode($this->username . ':' . $this->password);
-        }
+        //if($auth){
+        //    $headers[] = 'Authorization: Basic ' . base64_encode($this->username . ':' . $this->password);
+        //}
         if($method === "POST"){
             $headers[] = "Content-type: application/x-www-form-urlencoded";
             $headers[] = 'Content-Length: ' . strlen($p);
