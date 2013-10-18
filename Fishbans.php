@@ -53,14 +53,14 @@ class Fishbans {
         return json_decode($this->sendRequest($file), true);
     }
 
-    public function getBansService($username, $service){
+    public function user_service($username, $service){
         $data = $this->json_get('/bans/' . $username . '/' . $service . '/');
         if($data['success'] == false){
             return false;
         }
         return new Bans_Service($data);
     }
-    public function getBans($username){
+    public function user($username){
         $data = $this->json_get('/bans/' . $username . '/');
         if($data['success'] == false){
             return false;
@@ -93,7 +93,7 @@ class Bans {
      * Get the total number of bans a user has.
      * @return int Number of bans
      */
-    public function ban_total(){
+    public function total(){
         $ret = 0;
         foreach ($this->json['bans']['service'] as $service){
             $ret += $service['bans'];
@@ -105,7 +105,7 @@ class Bans {
      * Get an assoc. array of all bans on this . array(ip => service)
      * @return array Array of bans
      */
-    public function bans(){
+    public function all(){
         $ret = array();
         foreach ($this->json['bans']['service'] as $service){
             foreach($service['ban_info'] as $server => $reason){
@@ -120,7 +120,7 @@ class Bans {
      * array(service => array('bans' => number, 'ban_info' => array('ip' => 'reason')))
      * @return array Bans by service
      */
-    public function bans_service(){
+    public function by_service(){
         return $this->json['bans']['service'];
     }
 }
